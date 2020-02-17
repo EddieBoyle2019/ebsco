@@ -1,5 +1,6 @@
 <?php
 
+//for development only
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -28,9 +29,10 @@ curl_close($ch);
 
 //var_dump(json_decode($result, true));
 
+//read JSON data response into associative array
 $data = json_decode($result, true);
 
-//recursive funtion
+//recursive function to parse through levels of JSON associative arrays 
 function printAll($a) {
     if (!is_array($a)) {
         //echo $a, '<br/>';
