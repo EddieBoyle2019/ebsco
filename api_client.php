@@ -32,6 +32,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+include 'api_cred.php';
+
 //define variables and set to empty values
 $search = "";
 $searchErr = "";
@@ -125,9 +127,9 @@ function printAll($a) {
 }
 
 //set up API request
-$api_key = '2YPSgidTwDaXf1d26VR004C0dcromPtB27mkBEE2';
+//$api_key = '2YPSgidTwDaXf1d26VR004C0dcromPtB27mkBEE2';
 
-$url = 'https://sandbox.ebsco.io/rm/rmaccounts/apidvgvmt/packages?search=' . $search . '&orderby=relevance&count=10&offset=1';
+$url = 'https://sandbox.ebsco.io/rm/rmaccounts/' . $custid . '/packages?search=' . $search . '&orderby=relevance&count=10&offset=1';
 
 $ch = curl_init();
 
