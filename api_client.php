@@ -33,7 +33,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // define variables and set to empty values
-
 $search = "";
 $searchErr = "";
 
@@ -60,8 +59,18 @@ function test_input($data) {
   return $data;
 }
 
+//initialiase variables to store results
+$vendorName = "";
+$packageName = "";
+$selected = false;
+$coverageStart = "";
+$coverageEnd = "";
+
 //recursive function to parse through levels of JSON associative arrays 
 function printAll($a) {
+
+    global $vendorName, $packageName, $selected, $coverageStart, $coverageEnd;
+
     if (!is_array($a)) {
         //echo $a, '<br/>';
         return;
@@ -69,23 +78,56 @@ function printAll($a) {
 
     foreach($a as $k => $value) {
 
-         if (($k == "packageName") && (!is_array($value)))
-     {
-        echo $value . "<br/>";
-     }
-         if (($k == "vendorId") && (!is_array($value)))
-     {
-        echo $value . "<br/>";
-     }
-         printAll($k);
-         printAll($value);
+        if (($k == "vendorName") && (!is_array($value)))
+        {
+            $vendorName = $value;
+        }
+        if (($k == "packageName") && (!is_array($value)))
+        {
+            $packageName = $value;
+        }
+        if (($k == "isSelected") && (!is_array($value)))
+        {
+            if ($value == true)
+            {
+                $selected = "Yes";
+            }
+            else if ($value == false)
+            {
+                $selected = "No";
+            }
+        }
+        if (($k == "beginCoverage") && (!is_array($value)))
+        {
+            $coverageStart = $value;
+        }
+        if (($k == "endCoverage") && (!is_array($value)))
+        {
+            $coverageEnd = $value;
+        }
 
-    }
+        if ($k == "endCoverage")
+        {
+            echo "<tr><td>" . $vendorName . "</td><td>" . $packageName . "</td><td>" . $selected . "</td><td>" . $coverageStart . $coverageEnd . "</td></tr>"; 
+            //reset values
+            $vendorName = "";
+            $packageName = "";
+            $selected = "";
+            $coverageStart = "";
+            $coverageEnd = "";
+        }
+
+        printAll($k);
+        printAll($value);
+
+   }
+
 }
 
+//set up API requests
 $api_key = '2YPSgidTwDaXf1d26VR004C0dcromPtB27mkBEE2';
 
-$url = 'https://sandbox.ebsco.io/rm/rmaccounts/apidvgvmt/packages?search=boston&orderby=relevance&count=10&offset=1';
+$url = 'https://sandbox.ebsco.io/rm/rmaccounts/apidvgvmt/packages?search=' . $search . '&orderby=relevance&count=10&offset=1';
 
 $ch = curl_init();
 
@@ -157,9 +199,9 @@ echo "<h3>Search results</h3>";
 echo "Search term: " . $search;
 echo "<br>";
 echo "Top 10 most relevant items only";
-echo "<br>";
+echo "<br/><br/>";
 
-if ($search)
+if(isset($_POST['search']))
 {    
     $result = curl_exec($ch);
 
@@ -170,7 +212,12 @@ if ($search)
     //read JSON data response into associative array
     $data = json_decode($result, true);
 
+    echo "<table cols=4 width=100%>";
+    echo "<tr><th>Vendor Name</th><th>Package Name</th><th>Selected</th><th>Coverage Dates</th></tr>";
+
     printAll($data);
+
+    echo "</table>";
 }
 
 ?>
