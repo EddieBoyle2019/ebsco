@@ -32,7 +32,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// define variables and set to empty values
+//define variables and set to empty values
 $search = "";
 $searchErr = "";
 
@@ -124,7 +124,7 @@ function printAll($a) {
 
 }
 
-//set up API requests
+//set up API request
 $api_key = '2YPSgidTwDaXf1d26VR004C0dcromPtB27mkBEE2';
 
 $url = 'https://sandbox.ebsco.io/rm/rmaccounts/apidvgvmt/packages?search=' . $search . '&orderby=relevance&count=10&offset=1';
@@ -201,6 +201,7 @@ echo "<br>";
 echo "Top 10 most relevant items only";
 echo "<br/><br/>";
 
+//carry out API search request
 if(isset($_POST['search']))
 {    
     $result = curl_exec($ch);
@@ -215,6 +216,7 @@ if(isset($_POST['search']))
     echo "<table cols=4 width=100%>";
     echo "<tr><th>Vendor Name</th><th>Package Name</th><th>Selected</th><th>Coverage Dates</th></tr>";
 
+    //function to parse through associative array and display results
     printAll($data);
 
     echo "</table>";
@@ -228,10 +230,7 @@ if(isset($_POST['search']))
   <!-- Footer with links to functions and options -->
   <div id="footer">
     <div id="left-footer">
-      <div class="open-help">
-      </div>
       <div id="right-footer">
-    <div class="open-data"></div>
       </div>
     </div>
   </div>

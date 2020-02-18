@@ -1,13 +1,5 @@
-* disable scrollbars in IE & Firefox */
-html, body {
-    overflow: hidden;
-    -ms-overflow-style: none;
-}
-
-/* disable scrollbars in Chrome*/
-::-webkit-scrollbar {
-    display: none;
-}
+/* CSS file for EBSCO API client */
+/* Eddie Boyle 2019 */
 
 body { 
     font-family: Calibri, Candara, Arial, sans-serif;
@@ -33,29 +25,6 @@ body {
     padding-right: 10px;
 }    
 
-
-#help-slide {
-    position:absolute;
-    padding-left: 5px;
-    width:500px;
-    top:65px;
-    left:-500px;
-    background-color:#ffffff;
-    cursor:pointer;
-    overflow-x: hidden;
-}
-
-#data-slide {
-    position:absolute;
-    padding-left: 5px;
-    width:500px;
-    top:65px;
-    right:-500px;
-    background-color:#ffffff;
-    cursor:pointer;
-    overflow-x: hidden;
-}
-
 .fltlft {
     float: left;
     margin-right: 8px;
@@ -68,7 +37,6 @@ body {
 .brand {
     height: 35px;
     width: 180px;
-   
 }
 
 .title {
@@ -132,9 +100,4 @@ body {
 
 .header {
     float: left;
-}
-
-.headerLinks {
-    float: right;
-    padding-left: 30px;
 }
