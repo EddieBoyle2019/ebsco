@@ -32,6 +32,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+//API credentials
 include 'api_cred.php';
 
 //define variables and set to empty values
@@ -127,7 +128,6 @@ function printAll($a) {
 }
 
 //set up API request
-//$api_key = '2YPSgidTwDaXf1d26VR004C0dcromPtB27mkBEE2';
 
 $url = 'https://sandbox.ebsco.io/rm/rmaccounts/' . $custid . '/packages?search=' . $search . '&orderby=relevance&count=10&offset=1';
 
